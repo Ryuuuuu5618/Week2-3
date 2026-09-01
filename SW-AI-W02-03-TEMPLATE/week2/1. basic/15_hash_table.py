@@ -49,18 +49,15 @@ def manage_grades(students):
 
     num_students = len(students)
 
-    if num_students == 0:
-        return
-
     average = sum(students.values()) / num_students
 
     top_score = 0
 
-    for student, score in students.items():
+    for student,score in students.items():
         if score > top_score:
             top_score = score
             top_student = student
-    
+
     return average, top_student, top_score
 
 def find_student_score(students, name):

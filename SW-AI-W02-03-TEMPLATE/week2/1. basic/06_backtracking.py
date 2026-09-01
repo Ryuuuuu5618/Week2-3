@@ -118,16 +118,20 @@ def combinations(n: int, k: int) -> list:
 
     def backtrack(start: int, current_combination: list) -> None:
 
-      temp = list(current_combination)
-
+      # k개의 조합이 완성되면 result에 추가
       if len(current_combination) == k:
-          result.append(temp)
-          return
+        # pop()을 통해 빼내고 있으니, 결국 텅 빔
+        # 그렇기에 current_combination의 복사본을 만들어 값을 추가
+        result.append(current_combination[:])
+        return
 
+      # start부터 조합 가능한 경우 탐색 함수
       for num in range(start, n + 1):
-          current_combination.append(num)
-          backtrack(num + 1, current_combination)
-          current_combination.pop()
+        current_combination.append(num)
+        backtrack(num + 1, current_combination)
+        # 탐색을 완료 후, 다음 새로운 탐색을 위해 원래 상태로 돌려놓기 위해 pop() 실행
+        # ex) [1, 2, n]의 조합 탐색 완료 -- pop() --> [1, 3/4, n] 새로운 탐색
+        current_combination.pop()
 
     backtrack(1, [])
     return result

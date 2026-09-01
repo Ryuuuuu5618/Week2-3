@@ -149,19 +149,24 @@ class LinkedList:
         # TODO: current.next = new_node
         pass
 
+        # 새로운 노드 인스턴스 형성
         new_node = Node(data)
 
+        # head 지정
         if self.head == None:
             self.head = new_node
             return
 
+        # 현재 노드
         current = self.head
 
-        while current.next != None:
+        # 노드 끝까지 이동
+        while current.next is not None:
             current = current.next
 
+        #
         current.next = new_node
-        
+
 
     def print_list(self):
         """
@@ -187,7 +192,7 @@ class LinkedList:
 
         current = self.head
 
-        while current != None:
+        while current is not None:
             values.append(current.data)
             current = current.next
 

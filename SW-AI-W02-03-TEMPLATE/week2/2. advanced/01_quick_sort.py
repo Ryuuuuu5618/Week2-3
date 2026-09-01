@@ -49,16 +49,22 @@ def partition(arr, low, high):
     # TODO: 피벗을 올바른 위치(i+1)에 배치
     pass
 
+    # pivot 선정
     pivot = arr[high]
+    # 아직 리스트에서 pivot보다 작은 값들을 찾지 못했기 때문에 low - 1로 시작
     i = low - 1
-
+    # j는 lowm -> high - 1까지 전부를 훑는 탐색자 역할
     for j in range(low, high):
         if arr[j] <= pivot:
             i += 1
             arr[i], arr[j] = arr[j], arr[i]
+    # 인덱스 i번까지는 pivot보다 작은 값들로 구성
+    # i + 1번부터는 pivot보다 큰 값으로 구성 
 
+    # pivot과 i + 1 값 교환
+    # 교환 후 pivot 기준 왼쪽 pivot보다 작은 값, 오른쪽 pivot보다 큰 값으로 구성
     arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    
+    #pivot 값이 담긴 index 번호 반환
     return i + 1
 
 def quick_sort_helper(arr, low, high):
@@ -76,12 +82,18 @@ def quick_sort_helper(arr, low, high):
     ## 피벗 오른쪽 부분 재귀 정렬
     pass
 
-    if low < high:
-        pivot_idx = partition(arr, low, high)
-        quick_sort_helper(arr, low, pivot_idx - 1)
-        quick_sort_helper(arr, pivot_idx + 1, high)
+    # low가 high보다 크거나 같으면 정렬할 것이 없음
+    if low >= high:
+        return
 
-        return arr
+    # pivot 인덴스 번호 선정
+    pivot_idx = partition(arr, low, high)
+    # pivot 기준 왼쪽 재귀 퀵 정렬
+    quick_sort_helper(arr, low, pivot_idx - 1)
+    # pviot 기준 오른쪽 재귀 퀵 정렬
+    quick_sort_helper(arr, pivot_idx + 1, high)
+
+    return arr
     
 
 def quick_sort(arr):
