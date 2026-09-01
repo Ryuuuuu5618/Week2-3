@@ -49,23 +49,19 @@ def merge(arr, left, mid, right):
 
     result = []
 
-    left_idx = 0
-    right_idx = 0
+    left_list = arr[left : mid + 1]
+    right_list = arr[mid + 1: right + 1]
 
-    arr_left = list(arr[left : mid + 1])
-    arr_right = list(arr[mid + 1 : right + 1])
-
-
-    while left_idx < len(arr_left) and right_idx < len(arr_right):
-        if arr_left[left_idx] <= arr_right[right_idx]:
-            result.append(arr_left[left_idx])
-            left_idx += 1
+    while left_list and right_list:
+        if left_list[0] <= right_list[0]:
+            result.append(left_list[0])
+            left_list.pop(0)
         else:
-            result.append(arr_right[right_idx])
-            right_idx += 1
+            result.append(right_list[0])
+            right_list.pop(0)
 
-    result.extend(arr_left[left_idx:])
-    result.extend(arr_right[right_idx:])
+    result.extend(left_list)
+    result.extend(right_list)
 
     return result
 
@@ -86,14 +82,16 @@ def merge_sort_helper(arr, left, right):
     pass
 
     if left >= right:
-        return arr
-    
+        return
+
     mid = (left + right) // 2
 
     merge_sort_helper(arr, left, mid)
     merge_sort_helper(arr, mid + 1, right)
 
-    return merge(arr, left, mid, right)
+    arr[left : right + 1] = merge(arr, left, mid, right)
+
+    return arr
 
 def merge_sort(arr):
     """

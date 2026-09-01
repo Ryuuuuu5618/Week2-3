@@ -37,7 +37,7 @@ def process_emergency_room(patients):
         처리된 환자 순서
     """
     # TODO: 빈 힙 생성
-    heap = []
+    heap = []  
     
     
     # TODO: 모든 환자를 힙에 추가
@@ -49,7 +49,24 @@ def process_emergency_room(patients):
     ## 힙에서 우선순위가 가장 높은 환자 꺼내기
     ## 환자 처리
     pass
-        
+
+    # 힙 정렬에서 튜플을 참조할 때, 0번 인덱스를 참조하여 오름차순 정렬을 함
+    # for 안에 변수를 튜플의 길이만큼 지정 시, 튜플이 자동 해제되며 인덱스 순으로 변수가 초기화 됨
+    for name, piority in patients:
+        heap.append((piority, name))
+
+    # 일반 리스트를 힙 리스트로 변경 -> 벨류가 낮은 순으로 자동 정렬(최소 힙)
+    heapq.heapify(heap)
+
+    while heap:
+        # 우선 순위 벨류가 낮은 순으로 자동 pop()
+        patient_info = heapq.heappop(heap)
+        name = patient_info[1]
+        piority = patient_info[0]
+
+        print(f"처리: {name} (우선순위: {piority})")
+        processed.append(name)
+    
     return processed
 
 # 테스트 케이스
@@ -75,5 +92,3 @@ if __name__ == "__main__":
     print("=== 응급실 환자 처리 ===")
     result2 = process_emergency_room(patients2)
     print(f"처리 순서: {result2}")
-
-
