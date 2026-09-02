@@ -62,10 +62,7 @@ def hanoi_count(n: int) -> int:
     # TODO: 2^N - 1 을 정수로 반환하세요.
     pass
 
-    if n == 0 :
-        return 0
-    else:
-        return int(2**n - 1)
+    return 2**n - 1
 
 
 def hanoi_moves(n: int) -> list:
@@ -77,29 +74,28 @@ def hanoi_moves(n: int) -> list:
     예) hanoi_moves(2) == [(1, 2), (1, 3), (2, 3)]
     """
     # TODO: N > 20 또는 N == 0 인 경우 [] 를 반환하세요.
-    # TODO: 그 외에는 재귀로 이동 순서를 만들어 반환하세요.
+
     pass
 
-    # 기제 사례
     if n > 20 or n == 0:
         return []
 
-    result = []
+    path = []
 
-    # 가장 큰 원판을 3으로 옮기는 것을 구현하면, 재귀 함수를 활용하여 풀 수 있음
-    # 원판 개수를 1개씩 줄이며 재귀함수 실행 
-    
-    def move(k, src, via, dst):
-        if k == 0:
-            return
+    def move(k: int, start: int, target: int):
+        if k > 1:
+            move(k - 1, start, 6 - start - target)
 
-        move(k-1, src, dst, via)        # 위쪽 k-1개를 via 로
-        result.append((src, dst))       # 가장 큰 원반을 dst 로
-        move(k-1, via, src, dst)        # via 의 k-1개를 dst 로
+        path.append((start, target))
 
-    move(n, 1, 2, 3)
-    
-    return result
+        if k > 1:
+            move(k - 1, 6 - start - target, target)
+
+
+
+    move(n, 1, 3)
+
+    return path
 
 
 if __name__ == "__main__":

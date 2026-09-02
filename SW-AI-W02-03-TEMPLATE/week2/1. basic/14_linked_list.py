@@ -164,7 +164,7 @@ class LinkedList:
         while current.next is not None:
             current = current.next
 
-        #
+        # 
         current.next = new_node
 
 
