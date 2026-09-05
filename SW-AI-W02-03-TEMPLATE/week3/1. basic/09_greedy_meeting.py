@@ -46,7 +46,32 @@ def select_meetings(meetings):
     # TODO: 나머지 회의들 확인
     ## 이전 회의가 끝난 후 시작하는 회의만 선택
     pass
-    
+
+    if meetings == None:
+        return 0
+
+    schedule = []
+
+    for start_time, finish_time in meetings:
+        schedule.append((finish_time, start_time))
+
+    schedule.sort()
+
+    selected.append((schedule[0][1], schedule[0][0]))
+
+
+    meeting_idx = 0
+    finish_time = schedule[meeting_idx][0]
+
+    while meeting_idx < len(schedule) - 1:
+        meeting_idx += 1
+        next_start_time = schedule[meeting_idx][1]
+
+        if finish_time < next_start_time:
+            next_finish_time = schedule[meeting_idx][0]
+            selected.append((next_start_time, next_finish_time))
+            finish_time = next_finish_time
+
     return len(selected), selected
 
 # 테스트 케이스

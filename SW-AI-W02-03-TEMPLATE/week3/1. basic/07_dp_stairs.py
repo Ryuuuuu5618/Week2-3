@@ -54,6 +54,9 @@ def climb_stairs(n):
     
     # TODO: 작은 문제부터 차례로 계산
     pass
+
+    
+    
     
     return dp[n]
 

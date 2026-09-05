@@ -50,13 +50,21 @@ def search_bst(root, target):
     Returns:
         True/False
     """
-    # TODO: root가 None이면 False 반환
-    pass
-    
-    # TODO: 값을 찾으면 True 반환
-    ## target이 작으면 왼쪽 서브트리에서 검색
-    ## target이 크면 오른쪽 서브트리에서 검색
-    pass
+
+    if root == None:
+        return False
+
+    # 이진 검색 트리는 루트보다 작은 값 -> 왼쪽 서브트리, 루트보다 큰 값 -> 오른쪽 서브트리
+
+    p = root.value
+
+    if p == target:
+        return True
+    elif p > target:
+        return search_bst(root.left, target)
+    else:
+        return search_bst(root.right, target)
+
 
 # 테스트 케이스
 if __name__ == "__main__":

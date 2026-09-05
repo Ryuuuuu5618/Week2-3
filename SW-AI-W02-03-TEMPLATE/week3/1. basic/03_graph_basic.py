@@ -47,7 +47,22 @@ def create_graph(vertices, edges, directed=False):
     ## 간선 추가 (u에서 v로)
     ## 무방향 그래프면 반대 방향도 추가
     pass
-    
+
+    graph = {}
+
+    for i in range(vertices):
+        graph[i] = []
+
+    # 무방향 그래프
+    if directed is False:
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+    # 방향 그래프
+    else:
+        for u, v in edges:
+            graph[u].append(v)
+
     return graph
 
 # 테스트 케이스

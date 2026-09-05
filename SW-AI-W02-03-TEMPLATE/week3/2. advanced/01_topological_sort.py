@@ -40,7 +40,7 @@ def topological_sort(vertices, edges):
         위상 정렬 순서
     """
     # TODO: 그래프와 진입 차수 초기화
-    pass
+    pass 
     
     # TODO: 그래프 구성 및 진입 차수 계산
     pass
@@ -48,13 +48,31 @@ def topological_sort(vertices, edges):
     # TODO: 진입 차수가 0인 정점들을 큐에 추가
     pass
     
-    result = []
     
     # TODO: 큐가 빌 때까지 반복
     ## 큐에서 정점 꺼내기
     ## 인접한 정점들의 진입 차수 감소
     pass
     
+    result = []
+
+    # 인접 리스트 -> 진입 차수 배열로 변환
+    # 0 : 0, 1 : 1, 2 : 1, 3 : 1
+    degree = [] # 인접 리스트
+
+    for i in range(vertices):
+        edge_count = 0
+        for start, end in edges:
+            if i == end:
+                edge_count += 1
+        degree.append(edge_count)
+
+    # 모든 진입 차수 배열의 값이 0이 될 때까지 반복
+    while degree.values() != 0:
+        pass
+
+
+    # 인접리스트[i]의 연결값의 진입차수 -1
     return result
 
 # 테스트 케이스
