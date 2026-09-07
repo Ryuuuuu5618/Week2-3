@@ -54,10 +54,12 @@ def topological_sort(vertices, edges):
     ## 인접한 정점들의 진입 차수 감소
     pass
     
-    result = []
+
+    queue = deque()
 
     # 인접 리스트 -> 진입 차수 배열로 변환
     # 0 : 0, 1 : 1, 2 : 1, 3 : 1
+    
     degree = [] # 인접 리스트
 
     for i in range(vertices):
@@ -66,13 +68,27 @@ def topological_sort(vertices, edges):
             if i == end:
                 edge_count += 1
         degree.append(edge_count)
+        # 진입 차수가 0인 인덱스 큐에 넣기
+        if degree[i] == 0:
+            queue.append(i)
+
+    result = []
 
     # 모든 진입 차수 배열의 값이 0이 될 때까지 반복
-    while degree.values() != 0:
-        pass
+    # -> queue가 빌 때까지 반복하면 됨
+    # why) 진입차수가 0인 노드들을 순서대로 삽입할 것이기 때문
+    while queue:
+        now = queue.popleft()
+        result.append(now)
+        # now의 인접리스트 연결값의 진입차수 -1
+        for i in range(len(edges)):
+            if now == edges[i][0]:
+                next_vertex = edges[i][1]
+                degree[next_vertex] -= 1
+                # 진입차수가 0이되면 queue에 추가
+                if degree[next_vertex] == 0:
+                    queue.append(next_vertex)
 
-
-    # 인접리스트[i]의 연결값의 진입차수 -1
     return result
 
 # 테스트 케이스

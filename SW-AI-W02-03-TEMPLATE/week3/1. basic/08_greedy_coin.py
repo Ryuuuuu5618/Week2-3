@@ -36,7 +36,7 @@ def make_change_greedy(change, coins):
     Args:
         change: 거슬러줄 금액
         coins: 동전 종류 리스트 (큰 순서)
-    
+
     Returns:
         (총 개수, {동전: 개수} 딕셔너리)
     """
