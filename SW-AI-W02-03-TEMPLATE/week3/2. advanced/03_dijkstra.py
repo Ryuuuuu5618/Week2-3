@@ -81,6 +81,44 @@ def dijkstra(n: int, edges: list, start: int) -> list:
     # TODO: dist 반환
     pass
 
+    # 인접리스트 (도착, 가중치) 구현
+    graph = [ [] for _ in range(n) ]
+    for u, v, w in edges:
+        graph[u].append((v, w))
+
+    # 최단 거리 배열 형성
+    min_dist = { i : INF for i in range(n) }
+    min_dist[start] = 0
+
+    # 방문 체크용
+    visited = [False] * n
+
+    # 힙리스트 생성
+    heap = []
+    heapq.heappush(heap,(0, start))
+    
+    # 힙이 빌 때까지 최단 거리 탐색 반복
+    while heap:
+        dist_now, now = heapq.heappop(heap)
+        # 방문 여부 체크
+        if visited[now]:
+                # 방문 했으면 스킵
+                continue
+        visited[now] = True
+        
+        # 이웃 노드 찾기
+        for v, w in graph[now]:
+            temp = dist_now + w
+            # 기존 거리보다 작으면 최소 거리 교체
+            if temp < min_dist[v]:
+                min_dist[v] = temp
+                heapq.heappush(heap, (temp, v))
+
+
+    dist = list(min_dist.values())
+
+    return dist
+
 
 def _format(dist):
     """출력 표기를 위한 헬퍼: float('inf') 는 'INF' 로 보여줌"""
