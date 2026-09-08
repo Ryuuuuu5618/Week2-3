@@ -39,55 +39,36 @@ def topological_sort(vertices, edges):
     Returns:
         위상 정렬 순서
     """
-    # TODO: 그래프와 진입 차수 초기화
-    pass 
-    
-    # TODO: 그래프 구성 및 진입 차수 계산
-    pass
-    
-    # TODO: 진입 차수가 0인 정점들을 큐에 추가
-    pass
-    
-    
-    # TODO: 큐가 빌 때까지 반복
-    ## 큐에서 정점 꺼내기
-    ## 인접한 정점들의 진입 차수 감소
-    pass
-    
 
+    # 그래프 -> 인접 리스트
+    graph = [ [] for _ in range(vertices) ]
+    # 진입 차수 그래프
+    degree = { i : 0 for i in range(vertices)}
+    for u, v in edges:
+        graph[u].append(v)
+        degree[v] += 1
+
+    # 위상 정렬 시작
+    # 진입 차수가 0인 버텍스를 담을 큐
     queue = deque()
-
-    # 인접 리스트 -> 진입 차수 배열로 변환
-    # 0 : 0, 1 : 1, 2 : 1, 3 : 1
-    
-    degree = [] # 인접 리스트
-
-    for i in range(vertices):
-        edge_count = 0
-        for start, end in edges:
-            if i == end:
-                edge_count += 1
-        degree.append(edge_count)
-        # 진입 차수가 0인 인덱스 큐에 넣기
-        if degree[i] == 0:
-            queue.append(i)
+    # 진입 차수가 0인 버텍스 큐에 추가
+    for vertex, edge_count in degree.items():
+        if edge_count == 0:
+            queue.append(vertex)
 
     result = []
 
-    # 모든 진입 차수 배열의 값이 0이 될 때까지 반복
-    # -> queue가 빌 때까지 반복하면 됨
-    # why) 진입차수가 0인 노드들을 순서대로 삽입할 것이기 때문
+    # 큐가 빌 때까지 반복
     while queue:
         now = queue.popleft()
         result.append(now)
-        # now의 인접리스트 연결값의 진입차수 -1
-        for i in range(len(edges)):
-            if now == edges[i][0]:
-                next_vertex = edges[i][1]
-                degree[next_vertex] -= 1
-                # 진입차수가 0이되면 queue에 추가
-                if degree[next_vertex] == 0:
-                    queue.append(next_vertex)
+        
+        for v in range(len(graph[now])):
+            neighbor = graph[now][v]
+            degree[neighbor] -= 1
+
+            if degree[neighbor] == 0:
+                queue.append(neighbor)
 
     return result
 
